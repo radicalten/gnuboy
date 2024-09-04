@@ -24,10 +24,10 @@ TARGETS = myapp
 #FB_OBJS = @FB_OBJS@ @JOY@ @SOUND@
 #FB_LIBS = 
 
-SVGA_OBJS = sys/svga/svgalib.o sys/pc/keymap.o 
-SVGA_LIBS = -L/usr/local/lib -lvga
+#SVGA_OBJS = sys/svga/svgalib.o sys/pc/keymap.o 
+#SVGA_LIBS = -L/usr/local/lib -lvga
 
-SDL_OBJS = sys/sdl/sdl.o sys/sdl/sdl-audio.o sys/sdl/keymap.o sys/sdl/sdl-joystick.o
+#SDL_OBJS = sys/sdl/sdl.o sys/sdl/sdl-audio.o sys/sdl/keymap.o sys/sdl/sdl-joystick.o
 #SDL_LIBS = @SDL_LIBS@
 #SDL_CFLAGS = @SDL_CFLAGS@
 
