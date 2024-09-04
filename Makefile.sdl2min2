@@ -6,4 +6,4 @@ SRCS    := $(wildcard src/*.c)
 OBJS    := $(patsubst %.c,%.o,$(SRCS))
 # Make requires <tab> to separate 
 all: $(OBJS)
-	$(CC) $(OBJS) -o $(TARGET)
+	$(CC) $(OBJS) $(CFLAGS) $(LDFLAGS) -o $(TARGET)
