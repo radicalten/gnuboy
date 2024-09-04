@@ -1,6 +1,8 @@
 #ifndef VID_H
 #define VID_H
 
+#define _POSIX_C_SOURCE 200809L
+
 /* stuff implemented by the different sys/ backends */
 
 void vid_begin();
