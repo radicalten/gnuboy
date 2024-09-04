@@ -20,9 +20,12 @@ jobs:
     - name: Compile
       run: |
         make -f Makefile.sdl2min2
+    - name: Create tarball
+      run: |
+          tar -cvf myapp.tgz myapp
     - name: Upload
       uses: actions/upload-artifact@v4
       with:
         name: Artifact
         path: |
-          .
+          ./myapp.tgz
