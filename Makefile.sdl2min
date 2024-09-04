@@ -51,7 +51,7 @@ sdlgnuboy: $(OBJS) $(SYS_OBJS) $(SDL_OBJS)
 	$(LD) $(OBJS) $(SYS_OBJS) $(SDL_OBJS) -o $@ $(SDL_LIBS) $(LDFLAGS)
 
 sdl2gnuboy: $(OBJS) $(SYS_OBJS) $(SDL2_OBJS)
-	$(LD) $(OBJS) $(SYS_OBJS) $(SDL2_OBJS) -o $@ $(SDL2_LIBS) $(LDFLAGS)
+	$(OBJS) $(SYS_OBJS) $(SDL2_OBJS) -o $@ $(SDL2_LIBS) $(LDFLAGS)
 
 sys/sdl/sdl.o: sys/sdl/sdl.c
 	$(MYCC) $(SDL_CFLAGS) -c $< -o $@
