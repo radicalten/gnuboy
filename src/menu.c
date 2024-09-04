@@ -1,6 +1,6 @@
 #include <dirent.h>
 #include <string.h>
-#include <sys/stat.h>
+#include <stat.h>
 #include <stdio.h>
 
 #include "menu.h"
