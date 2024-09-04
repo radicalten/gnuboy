@@ -1,41 +1,41 @@
 
-prefix = @prefix@
-exec_prefix = @exec_prefix@
-bindir = @bindir@
+# prefix = @prefix@
+#exec_prefix = @exec_prefix@
+#bindir = @bindir@
 
-CC = @CC@
-LD = $(CC)
-AS = $(CC)
-INSTALL = @INSTALL@
+CC = gcc
+#LD = $(CC)
+#AS = $(CC)
+#INSTALL = @INSTALL@
 
-CFLAGS = @CFLAGS@
-CPPFLAGS = @CPPFLAGS@
-LDFLAGS = $(CFLAGS) @LDFLAGS@ @LIBS@
-ASFLAGS = $(CFLAGS)
+CFLAGS = -g -O3 -Wall -std=c99 
+#CPPFLAGS = @CPPFLAGS@
+LDFLAGS = $(CFLAGS) -I/opt/homebrew/include/SDL2 -L/opt/homebrew/lib -Wl,-rpath,/opt/homebrew/lib -lSDL2
+#ASFLAGS = $(CFLAGS)
 
-TARGETS = @TARGETS@
+TARGETS = myapp
 
-ASM_OBJS = @ASM_OBJS@
+#ASM_OBJS = @ASM_OBJS@
 
-SYS_DEFS = @DEFS@ @ENDIAN@ @ASM@ @SYS_DEFS@
-SYS_OBJS = @SYS_OBJS@ $(ASM_OBJS)
-SYS_INCS = @XINCS@ -I./sys/nix
+#SYS_DEFS = @DEFS@ @ENDIAN@ @ASM@ @SYS_DEFS@
+#SYS_OBJS = @SYS_OBJS@ $(ASM_OBJS)
+#SYS_INCS = @XINCS@ -I./sys/nix
 
-FB_OBJS = @FB_OBJS@ @JOY@ @SOUND@
-FB_LIBS = 
+#FB_OBJS = @FB_OBJS@ @JOY@ @SOUND@
+#FB_LIBS = 
 
-SVGA_OBJS = sys/svga/svgalib.o sys/pc/keymap.o @JOY@ @SOUND@
+SVGA_OBJS = sys/svga/svgalib.o sys/pc/keymap.o 
 SVGA_LIBS = -L/usr/local/lib -lvga
 
 SDL_OBJS = sys/sdl/sdl.o sys/sdl/sdl-audio.o sys/sdl/keymap.o sys/sdl/sdl-joystick.o
-SDL_LIBS = @SDL_LIBS@
-SDL_CFLAGS = @SDL_CFLAGS@
+#SDL_LIBS = @SDL_LIBS@
+#SDL_CFLAGS = @SDL_CFLAGS@
 
 SDL2_OBJS = sys/sdl2/sdl2.o sys/sdl2/sdl-audio.o sys/sdl2/keymap.o sys/sdl2/sdl-joystick.o
-SDL2_LIBS = @SDL2_LIBS@
+#SDL2_LIBS = @SDL2_LIBS@
 
-X11_OBJS = sys/x11/xlib.o sys/x11/keymap.o @JOY@ @SOUND@
-X11_LIBS = @XLIBS@ -lX11 -lXext
+#X11_OBJS = sys/x11/xlib.o sys/x11/keymap.o @JOY@ @SOUND@
+#X11_LIBS = @XLIBS@ -lX11 -lXext
 
 all: $(TARGETS)
 
