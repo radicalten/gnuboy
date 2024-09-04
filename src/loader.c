@@ -21,7 +21,7 @@
 #include "inflate.h"
 #include "miniz.h"
 #define XZ_USE_CRC64
-#include "xz/xz.h"
+#include "xz.h"
 #include "save.h"
 #include "sound.h"
 #include "sys.h"
