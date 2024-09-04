@@ -20,13 +20,9 @@ jobs:
     - name: Compile
       run: |
         make -f Makefile.sdl2min
-    - name: Create tarball
-      run: |
-          cd build
-          tar -cvf emu.tgz emu
     - name: Upload
       uses: actions/upload-artifact@v4
       with:
         name: Artifact
         path: |
-          ./build/emu.tgz
+          .
