@@ -10,7 +10,7 @@ CC = gcc
 
 CFLAGS = -g -O3 -Wall -std=c99 
 #CPPFLAGS = @CPPFLAGS@
-LDFLAGS = $(CFLAGS) -I/opt/homebrew/include/SDL2 -L/opt/homebrew/lib -Wl,-rpath,/opt/homebrew/lib -lSDL2
+LDFLAGS = -I/opt/homebrew/include/SDL2 -L/opt/homebrew/lib -Wl,-rpath,/opt/homebrew/lib -lSDL2
 #ASFLAGS = $(CFLAGS)
 
 TARGETS = myapp
@@ -51,7 +51,7 @@ sdlgnuboy: $(OBJS) $(SYS_OBJS) $(SDL_OBJS)
 	$(LD) $(OBJS) $(SYS_OBJS) $(SDL_OBJS) -o $@ $(SDL_LIBS) $(LDFLAGS)
 
 sdl2gnuboy: $(OBJS) $(SYS_OBJS) $(SDL2_OBJS)
-	$(OBJS) $(SYS_OBJS) $(SDL2_OBJS) -o $@ $(SDL2_LIBS) $(LDFLAGS)
+	$(OBJS) $(CFLAGS) $(LDFLAGS) $(SYS_OBJS) $(SDL2_OBJS) -o $(TARGETS) 
 
 sys/sdl/sdl.o: sys/sdl/sdl.c
 	$(MYCC) $(SDL_CFLAGS) -c $< -o $@
