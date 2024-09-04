@@ -19,9 +19,6 @@
 #include "rc.h"
 #include "lcd.h"
 #include "inflate.h"
-#include "miniz.h"
-#define XZ_USE_CRC64
-#include "xz.h"
 #include "save.h"
 #include "sound.h"
 #include "sys.h"
@@ -229,72 +226,6 @@ static int write_dec(byte *data, int len) {
 	for(i=0; i < len; i++)
 		if(inflate_callback(data[i])) return -1;
 	return 0;
-}
-
-static int unxz(byte *data, int len) {
-	struct xz_buf b;
-	struct xz_dec *s;
-	enum xz_ret ret;
-	unsigned char out[4096];
-
-	/*
-	 * Support up to 64 MiB dictionary. The actually needed memory
-	 * is allocated once the headers have been parsed.
-	*/
-	s = xz_dec_init(XZ_DYNALLOC, 1 << 26);
-	if(!s) goto err;
-
-	b.in = data;
-	b.in_pos = 0;
-	b.in_size = len;
-	b.out = out;
-	b.out_pos = 0;
-	b.out_size = sizeof(out);
-
-	while (1) {
-		ret = xz_dec_run(s, &b);
-		if(b.out_pos == sizeof(out)) {
-			if(write_dec(out, sizeof(out))) goto err;
-			b.out_pos = 0;
-		}
-
-		if(ret == XZ_OK) continue;
-
-		if(write_dec(out, b.out_pos)) goto err;
-
-		if(ret == XZ_STREAM_END) {
-			xz_dec_end(s);
-			return 0;
-		}
-		goto err;
-	}
-
-	err:
-	xz_dec_end(s);
-	return -1;
-}
-
-static byte *do_unxz(byte *data, int *len) {
-	xz_crc32_init();
-	xz_crc64_init();
-	inf_buf = 0;
-	inf_pos = inf_len = 0;
-	if (unxz(data, *len) < 0)
-		return data;
-	free(data);
-	*len = inf_pos;
-	return inf_buf;
-}
-
-static byte *decompress(byte *data, int *len)
-{
-	if (data[0] == 0x1f && data[1] == 0x8b)
-		return gunzip(data, len);
-	if (data[0] == 0xFD && !memcmp(data+1, "7zXZ", 4))
-		return do_unxz(data, len);
-	if (data[0] == 'P' && !memcmp(data+1, "K\03\04", 3))
-		return pkunzip(data, len);
-	return data;
 }
 
 static FILE* rom_loadfile(char *fn, byte** data, int *len) {
