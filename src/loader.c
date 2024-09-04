@@ -1,3 +1,7 @@
+#undef _POSIX_C_SOURCE
+#define _POSIX_C_SOURCE 200809L
+#undef _GNU_SOURCE
+#define _GNU_SOURCE
 #include <string.h>
 
 #include <stdio.h>
