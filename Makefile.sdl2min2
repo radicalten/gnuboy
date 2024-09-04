@@ -1,6 +1,6 @@
 CC      := gcc
 CFLAGS  := -g -O3 -Wall -std=c99
-LDFLAGS := -I/opt/homebrew/include/SDL2 -L/opt/homebrew/lib -Wl,-rpath,/opt/homebrew/lib -lSDL2 -lm -lx11
+LDFLAGS := -I/opt/homebrew/include/SDL2 -L/opt/homebrew/lib -Wl,-rpath,/opt/homebrew/lib -lSDL2 -lpthread
 TARGET  := myapp
 SRCS    := $(wildcard src/*.c)
 OBJS    := $(patsubst %.c,%.o,$(SRCS))
