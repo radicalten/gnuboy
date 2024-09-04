@@ -7,7 +7,7 @@
  */
 
 #include <SDL2/SDL_keycode.h>
-#include "../../input.h"
+#include "input.h"
 
 int keymap[][2] = {
 	{ SDLK_LSHIFT, K_SHIFT },
