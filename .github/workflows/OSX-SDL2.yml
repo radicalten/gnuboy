@@ -1,0 +1,32 @@
+name: OSX-SDL2
+on:
+  push:
+    branches:
+    - master
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Install SDL2
+      run: |
+        mkdir build
+        cd build
+        git clone --branch SDL2 --depth 1 https://github.com/libsdl-org/SDL.git
+        cmake sdl
+        make
+        sudo make install
+    - name: Compile
+      run: |
+        make -f Makefile.sdl2min
+    - name: Create tarball
+      run: |
+          cd build
+          tar -cvf emu.tgz emu
+    - name: Upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: Artifact
+        path: |
+          ./build/emu.tgz
